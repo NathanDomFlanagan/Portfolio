@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nathan's - Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style>
+        /* Add some basic styling */
+        canvas {
+          border: 1px solid black;
+        }
+        .game-container {
+          display: flex;
+          align-items: flex-start;
+        }
+        #instructions {
+          margin-left: 20px;
+        }
+      </style>
+  </head>
+  <body>
+    <header>
+      <h1>Games Page</h1>
+    </header>
+    <div class="content">
+      <section>
+        <h2>Pages</h2>
+        <p>
+          <a href="index.html">Home Page</a>
+          <a href="about.html">About Page</a>
+          <a href="projects.html">Personal Projects</a>
+          <a href="game.html">Game</a>
+          <a href="contact.html">Contact Page</a>
+        </p>
+      </section>
+      <section>
+        <h2>Snake</h2>
+        <div class="game-container">
+          <canvas id="gameCanvas" width="400" height="400"></canvas>
+          <div id="instructions">
+            <h2>How to Play</h2>
+            <p>Use the arrow keys to move the snake:</p>
+            <ul>
+              <li>Up: Arrow Up</li>
+              <li>Down: Arrow Down</li>
+              <li>Left: Arrow Left</li>
+              <li>Right: Arrow Right</li>
+            </ul>
+            <p>Press the space bar to pause/start the game.</p>
+            <p>Eat the red food to grow and increase your score.</p>
+            <p>Avoid running into the walls or yourself.</p>
+          </div>
+        </div>
+        <script src="snake.js"></script>
+      </section>
+    </div>
+    <footer>
+      <p></p>
+    </footer>
+  </body>
+</html>
