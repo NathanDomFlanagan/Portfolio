@@ -4,6 +4,7 @@
     <title>Nathan's - Portfolio</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="smoothScrolling.js"></script>
     <style>
         /* Add some basic styling */
         canvas {
@@ -88,6 +89,15 @@
             <p>First to 3 in a row wins.</p>
             <p>Game resets after win or draw.</p>
         <script src="tictactoe.js"></script>
+      </section>
+      <section>
+        <h1>Number Guessing Game</h1>
+        <p>Guess a number between 1 and 100:</p>
+        <input type="number" id="guess" min="1" max="100">
+        <button onclick="checkGuess()">Guess</button>
+        <button onclick="resetGame()">Reset</button>
+        <p id="result"></p>
+        <script src="random.js"></script>
       </section>
     </div>
     <footer>
