@@ -91,15 +91,15 @@ function checkCollision(head, body) {
 
 // Handle keyboard input
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowUp' && direction !== 'down') {
+  if (e.key === 'w' && direction !== 'down') {
     direction = 'up';
-  } else if (e.key === 'ArrowDown' && direction !== 'up') {
+  } else if (e.key === 's' && direction !== 'up') {
     direction = 'down';
-  } else if (e.key === 'ArrowLeft' && direction !== 'right') {
+  } else if (e.key === 'a' && direction !== 'right') {
     direction = 'left';
-  } else if (e.key === 'ArrowRight' && direction !== 'left') {
+  } else if (e.key === 'd' && direction !== 'left') {
     direction = 'right';
-  } else if (e.key === ' ') { // Space bar to pause/start the game
+  } else if (e.key === 'e') { // Space bar to pause/start the game
     paused = !paused;
   }
 });
