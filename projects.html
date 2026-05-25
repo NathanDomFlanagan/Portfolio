@@ -1,46 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Nathan's - Portfolio</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="smooth-scrolling.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Nathan Flanagan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        if (saved) document.documentElement.setAttribute("data-theme", saved);
+      })();
+    </script>
   </head>
   <body>
-    <header>
-      <h1>My projects</h1>
-    </header>
+    <nav class="navbar">
+      <a class="nav-brand" href="index.html">Nathan.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="game.html">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <h1>My <span class="accent">Projects</span></h1>
+    </div>
+
     <div class="content">
       <section>
-        <h2>Pages</h2>
-        <p>
-          <a href="index.html">Home Page</a>
-          <a href="about.html">About Page</a>
-          <a href="projects.html">Personal Projects</a>
-          <a href="game.html">Game</a>
-          <a href="contact.html">Contact Page</a>
-        </p>
-      </section>
-      <section>
-        <h2>My Projects</h2>
-        <br>
-          This will hold any other projects I have made, or am still working on.
-          I plan to improve this website and make it pop more, and work on some Cyber-Security tools I have planned.
-
-        </br><br></br>
-
-        <a href="https://github.com/NathanDomFlanagan/Portfolio">
-            This website</a>.<br></br>
-
-        <a href="https://github.com/NathanDomFlanagan/PasswordTesterApp">
-            Simple Password Testing GUI</a>.<br></br>
-        
-        <a href="https://github.com/NathanDomFlanagan/BatchScripts">
-            Batch Scripts</a>.
-        </p>
+        <h2>Personal Projects</h2>
+        <div class="card-list">
+          <a class="card" href="https://github.com/NathanDomFlanagan/Portfolio" target="_blank" rel="noopener noreferrer">
+            <div class="card-info">
+              <span class="card-name">Portfolio Website</span>
+              <span class="card-desc">This site — built with HTML, CSS &amp; JS</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </a>
+          <a class="card" href="https://github.com/NathanDomFlanagan/PasswordTesterApp" target="_blank" rel="noopener noreferrer">
+            <div class="card-info">
+              <span class="card-name">Password Tester App</span>
+              <span class="card-desc">Simple password strength testing GUI</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </a>
+          <a class="card" href="https://github.com/NathanDomFlanagan/BatchScripts" target="_blank" rel="noopener noreferrer">
+            <div class="card-info">
+              <span class="card-name">Batch Scripts</span>
+              <span class="card-desc">Collection of Windows batch automation scripts</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </a>
+        </div>
       </section>
     </div>
-    <footer>
-      <p></p>
-    </footer>
+
+    <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
+
+    <script>
+      document.getElementById("nav-toggle").addEventListener("click", function () {
+        document.getElementById("nav-links").classList.toggle("open");
+      });
+      var root = document.documentElement;
+      var btn  = document.getElementById("theme-toggle");
+      function getTheme() {
+        if (root.hasAttribute("data-theme")) return root.getAttribute("data-theme");
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        btn.textContent = theme === "dark" ? "◑" : "◐";
+      }
+      applyTheme(getTheme());
+      btn.addEventListener("click", function () {
+        applyTheme(getTheme() === "dark" ? "light" : "dark");
+      });
+    </script>
   </body>
 </html>

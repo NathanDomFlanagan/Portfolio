@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Nathan Flanagan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>(function(){var s=localStorage.getItem("theme");if(s)document.documentElement.setAttribute("data-theme",s);})();</script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="nav-brand" href="index.html">Nathan.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="game.html">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </nav>
+
+    <div class="not-found reveal">
+      <span class="code">404</span>
+      <h2>Page not found.</h2>
+      <p>The page you're looking for doesn't exist or has been moved.</p>
+      <a class="home-btn" href="index.html">← Back to home</a>
+    </div>
+
+    <footer>
+      <span class="footer-name">Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</span>
+      <div class="footer-divider"></div>
+      <div class="footer-socials">
+        <a href="https://github.com/NathanDomFlanagan" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/nathan-flanagan-ab9139248/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("nav-toggle").addEventListener("click", function(){document.getElementById("nav-links").classList.toggle("open");});
+      var root=document.documentElement,btn=document.getElementById("theme-toggle");
+      function getTheme(){if(root.hasAttribute("data-theme"))return root.getAttribute("data-theme");return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}
+      function applyTheme(t){root.setAttribute("data-theme",t);localStorage.setItem("theme",t);btn.textContent=t==="dark"?"◑":"◐";}
+      applyTheme(getTheme());
+      btn.addEventListener("click",function(){applyTheme(getTheme()==="dark"?"light":"dark");});
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);}});},{threshold:0.1});
+      document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el);});
+    </script>
+  </body>
+</html>

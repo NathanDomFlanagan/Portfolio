@@ -1,40 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Nathan's - Portfolio</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="smooth-scrolling.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — Nathan Flanagan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        if (saved) document.documentElement.setAttribute("data-theme", saved);
+      })();
+    </script>
   </head>
   <body>
-    <header>
-      <h1>About page</h1>
-    </header>
+    <nav class="navbar">
+      <a class="nav-brand" href="index.html">Nathan.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="game.html">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <h1>About <span class="accent">Me</span></h1>
+    </div>
+
     <div class="content">
       <section>
-        <h2>Pages</h2>
-        <p>
-          <a href="index.html">Home Page</a>
-          <a href="about.html">About Page</a>
-          <a href="projects.html">Personal Projects</a>
-          <a href="game.html">Game</a>
-          <a href="contact.html">Contact Page</a>
+        <h2>Who I Am</h2>
+        <p class="about-text">
+          Hello! I'm Nathan Flanagan, a Software Development and Networking &amp; Cyber-Security
+          graduate from Auckland University of Technology (AUT). I have experience across
+          Java, C, Python, and both front-end and back-end web development — including HTML,
+          CSS, and JavaScript. I'm always eager to keep learning, and I enjoy coding personal
+          projects, video games, socialising with family and friends, and keeping up with the
+          latest tech trends.
         </p>
+        <div class="about-tags">
+          <span class="tag">Java</span>
+          <span class="tag">C</span>
+          <span class="tag">Python</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Networking</span>
+          <span class="tag">Cyber-Security</span>
+        </div>
       </section>
       <section>
-        <h2>About Me</h2>
-        <p>
-          Hello! My name is Nathan Flanagan and I'm a Software Development and Networking
-          & Cyber-Security graduate from Auckland University of Technology
-          (AUT). I have experience in Java, C, Python, front-end, and back-end
-          web development. This includes HTML, CSS, and JavaScript. I'm always
-          eager to learn more in my free time. I enjoy coding personal projects,
-          video games, socialising with my family and friends, and keeping up
-          with the latest tech trends.
+        <h2>Education</h2>
+        <p style="font-size: 0.92rem; color: var(--subtle);">
+          Bachelor's degree in Software Development + Networking &amp; Cyber-Security<br />
+          <span style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--muted);">
+            Auckland University of Technology (AUT)
+          </span>
         </p>
       </section>
     </div>
-    <footer>
-      <p></p>
-    </footer>
+
+    <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
+
+    <script>
+      document.getElementById("nav-toggle").addEventListener("click", function () {
+        document.getElementById("nav-links").classList.toggle("open");
+      });
+      var root = document.documentElement;
+      var btn  = document.getElementById("theme-toggle");
+      function getTheme() {
+        if (root.hasAttribute("data-theme")) return root.getAttribute("data-theme");
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        btn.textContent = theme === "dark" ? "◑" : "◐";
+      }
+      applyTheme(getTheme());
+      btn.addEventListener("click", function () {
+        applyTheme(getTheme() === "dark" ? "light" : "dark");
+      });
+    </script>
   </body>
 </html>

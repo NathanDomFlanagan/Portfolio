@@ -1,108 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Nathan's - Portfolio</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="smoothScrolling.js"></script>
-    <style>
-        /* Add some basic styling */
-        canvas {
-          border: 1px solid black;
-        }
-        .game-container {
-          display: flex;
-          align-items: flex-start;
-        }
-        #instructions {
-          margin-left: 20px;
-        }
-        .board {
-          display: grid;
-          grid-template-columns: repeat(3, 100px);
-          grid-template-rows: repeat(3, 100px);
-          gap: 5px;
-        }
-        .cell {
-          width: 100px;
-          height: 100px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2em;
-          border: 1px solid #000;
-          cursor: pointer;
-        }
-      </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games — Nathan Flanagan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        if (saved) document.documentElement.setAttribute("data-theme", saved);
+      })();
+    </script>
   </head>
   <body>
-    <header>
-      <h1>Games Page</h1>
-    </header>
+    <nav class="navbar">
+      <a class="nav-brand" href="index.html">Nathan.</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="game.html" class="active">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <h1>The <span class="accent">Games</span></h1>
+    </div>
+
     <div class="content">
-      <section>
-        <h2>Pages</h2>
-        <p>
-          <a href="index.html">Home Page</a>
-          <a href="about.html">About Page</a>
-          <a href="projects.html">Personal Projects</a>
-          <a href="game.html">Game</a>
-          <a href="contact.html">Contact Page</a>
-        </p>
-      </section>
       <section>
         <h2>Snake</h2>
         <div class="game-container">
           <canvas id="gameCanvas" width="400" height="400"></canvas>
           <div id="instructions">
             <h2>How to Play</h2>
-            <!-- Add a way to save scores into local storage, and also display with 3 character ID -->
-            <p>Use the arrow keys to move the snake:</p>
+            <p>Use the keys to move the snake:</p>
             <ul>
-              <li>Up: W</li>
-              <li>Down: S</li>
-              <li>Left: A</li>
-              <li>Right: D</li>
+              <li>Up: <strong>W</strong></li>
+              <li>Down: <strong>S</strong></li>
+              <li>Left: <strong>A</strong></li>
+              <li>Right: <strong>D</strong></li>
             </ul>
-            <p>Press the 'E' key to pause/start the game.</p>
-            <p>Eat the red food to grow and increase your score.</p>
-            <p>Avoid running into the walls or yourself.</p>
+            <p>Press <strong>E</strong> to pause / start.</p>
+            <p>Eat the red food to grow and score.</p>
+            <p>Avoid walls and yourself.</p>
           </div>
         </div>
         <script src="snake.js"></script>
       </section>
+
       <section>
         <h2>Tic-Tac-Toe</h2>
         <div class="game-container">
-        <div class="board">
-          <div class="cell" data-index="0"></div>
-          <div class="cell" data-index="1"></div>
-          <div class="cell" data-index="2"></div>
-          <div class="cell" data-index="3"></div>
-          <div class="cell" data-index="4"></div>
-          <div class="cell" data-index="5"></div>
-          <div class="cell" data-index="6"></div>
-          <div class="cell" data-index="7"></div>
-          <div class="cell" data-index="8"></div>
-        </div>
-        <div id="instructions">
-        <h2>How to Play</h2>
+          <div class="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+          </div>
+          <div id="instructions">
+            <h2>How to Play</h2>
             <p>First to 3 in a row wins.</p>
-            <p>Game resets after win or draw.</p>
+            <p>Game resets after a win or draw.</p>
+          </div>
+        </div>
         <script src="tictactoe.js"></script>
       </section>
+
       <section>
-        <h1>Number Guessing Game</h1>
-        <p>Guess a number between 1 and 100:</p>
-        <input type="number" id="guess" min="1" max="100">
+        <h2>Number Guesser</h2>
+        <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--subtle);">
+          Guess a number between 1 and 100:
+        </p>
+        <input type="number" id="guess" min="1" max="100" placeholder="Your guess..." />
         <button onclick="checkGuess()">Guess</button>
         <button onclick="resetGame()">Reset</button>
         <p id="result"></p>
         <script src="random.js"></script>
       </section>
     </div>
-    <footer>
-      <p></p>
-    </footer>
+
+    <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
+
+    <script>
+      document.getElementById("nav-toggle").addEventListener("click", function () {
+        document.getElementById("nav-links").classList.toggle("open");
+      });
+      var root = document.documentElement;
+      var btn  = document.getElementById("theme-toggle");
+      function getTheme() {
+        if (root.hasAttribute("data-theme")) return root.getAttribute("data-theme");
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+        btn.textContent = theme === "dark" ? "◑" : "◐";
+      }
+      applyTheme(getTheme());
+      btn.addEventListener("click", function () {
+        applyTheme(getTheme() === "dark" ? "light" : "dark");
+      });
+    </script>
   </body>
 </html>
