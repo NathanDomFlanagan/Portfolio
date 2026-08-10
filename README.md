@@ -55,7 +55,7 @@ npx serve .
 
 ## Live Site
 
-_(Add your deployed link here if the site is hosted, e.g. GitHub Pages / Netlify / Vercel)_
+https://nathandomflanagan.github.io/Portfolio/
 
 ## About Me
 
