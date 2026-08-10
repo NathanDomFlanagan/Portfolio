@@ -38,21 +38,6 @@ Portfolio/
 └── package.json                    # Project dependencies
 ```
 
-## Running Locally
-
-No build tools required for the core site. Clone the repo and open `index.html` in your browser:
-
-```bash
-git clone https://github.com/NathanDomFlanagan/Portfolio.git
-cd Portfolio
-```
-
-Then open `index.html` directly, or serve it locally, e.g.:
-
-```bash
-npx serve .
-```
-
 ## Live Site
 
 https://nathandomflanagan.github.io/Portfolio/
