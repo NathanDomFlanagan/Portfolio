@@ -1,13 +1,15 @@
+(function () {
 // Get the canvas element
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('snake-score');
+const statusEl = document.getElementById('snake-status');
 
 // Set the canvas dimensions
 canvas.width = 400;
 canvas.height = 400;
 
-// Define the snake and food objects
-let snake = [
+const START_SNAKE = [
   { x: 200, y: 200 },
   { x: 190, y: 200 },
   { x: 180, y: 200 },
@@ -15,18 +17,36 @@ let snake = [
   { x: 160, y: 200 }
 ];
 
-let food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
+// Define the snake and food objects
+let snake = START_SNAKE.map(seg => ({ ...seg }));
+let food = spawnFood();
 
 // Define the game variables
 let score = 0;
 let direction = 'right';
 let paused = true;
+let speed = 100;
+
+function updateScore() {
+  scoreEl.textContent = 'Score: ' + score;
+}
+
+function setStatus(text) {
+  statusEl.textContent = text;
+}
+
+// Pick a food tile that isn't currently under the snake
+function spawnFood() {
+  let pos;
+  do {
+    pos = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
+  } while (snake.some(segment => segment.x === pos.x && segment.y === pos.y));
+  return pos;
+}
 
 // Main game loop
-setInterval(() => {
-  if(!paused) 
-  {
-
+function tick() {
+  if (!paused) {
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -58,26 +78,28 @@ setInterval(() => {
     // Check for collision with food
     if (snake[0].x === food.x && snake[0].y === food.y) {
       score++;
-      food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
+      updateScore();
       snake.push({ x: snake[snake.length - 1].x, y: snake[snake.length - 1].y });
+      food = spawnFood();
+      speed = Math.max(50, 100 - Math.floor(score / 5) * 5);
     }
 
     // Check for collision with wall or self
     if (snake[0].x < 0 || snake[0].x >= canvas.width || snake[0].y < 0 || snake[0].y >= canvas.height || checkCollision(snake[0], snake.slice(1))) {
-      alert('Game Over! Your score is ' + score);
-      snake = [
-        { x: 200, y: 200 },
-        { x: 190, y: 200 },
-        { x: 180, y: 200 },
-        { x: 170, y: 200 },
-        { x: 160, y: 200 }
-      ];
-      food = { x: Math.floor(Math.random() * 40) * 10, y: Math.floor(Math.random() * 40) * 10 };
+      setStatus('Game over! Score: ' + score + '. Press E to play again.');
+      snake = START_SNAKE.map(seg => ({ ...seg }));
+      food = spawnFood();
       score = 0;
+      updateScore();
+      speed = 100;
       paused = true;
     }
   }
-}, 100);
+  setTimeout(tick, speed);
+}
+
+updateScore();
+tick();
 
 // Check for collision with self
 function checkCollision(head, body) {
@@ -89,17 +111,24 @@ function checkCollision(head, body) {
   return false;
 }
 
-// Handle keyboard input
+// Handle keyboard input (WASD or arrow keys)
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'w' && direction !== 'down') {
-    direction = 'up';
-  } else if (e.key === 's' && direction !== 'up') {
-    direction = 'down';
-  } else if (e.key === 'a' && direction !== 'right') {
-    direction = 'left';
-  } else if (e.key === 'd' && direction !== 'left') {
-    direction = 'right';
-  } else if (e.key === 'e') { // Space bar to pause/start the game
+  const key = e.key.toLowerCase();
+  if (key === 'w' || key === 'arrowup') {
+    if (direction !== 'down') direction = 'up';
+  } else if (key === 's' || key === 'arrowdown') {
+    if (direction !== 'up') direction = 'down';
+  } else if (key === 'a' || key === 'arrowleft') {
+    if (direction !== 'right') direction = 'left';
+  } else if (key === 'd' || key === 'arrowright') {
+    if (direction !== 'left') direction = 'right';
+  } else if (key === 'e') {
     paused = !paused;
+    setStatus(paused ? 'Paused. Press E to resume.' : '');
+  } else {
+    return;
   }
+  if (key.startsWith('arrow')) e.preventDefault();
 });
+
+})();

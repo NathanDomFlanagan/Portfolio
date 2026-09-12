@@ -23,7 +23,11 @@
       <section>
         <h2>Snake</h2>
         <div class="game-container">
-          <canvas id="gameCanvas" width="400" height="400"></canvas>
+          <div>
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <p id="snake-score" class="game-status">Score: 0</p>
+            <p id="snake-status" class="game-status">Press E to start.</p>
+          </div>
           <div id="instructions">
             <h2>How to Play</h2>
             <p>Use the keys to move the snake:</p>
@@ -44,21 +48,25 @@
       <section>
         <h2>Tic-Tac-Toe</h2>
         <div class="game-container">
-          <div class="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
+          <div>
+            <div class="board">
+              <div class="cell" data-index="0"></div>
+              <div class="cell" data-index="1"></div>
+              <div class="cell" data-index="2"></div>
+              <div class="cell" data-index="3"></div>
+              <div class="cell" data-index="4"></div>
+              <div class="cell" data-index="5"></div>
+              <div class="cell" data-index="6"></div>
+              <div class="cell" data-index="7"></div>
+              <div class="cell" data-index="8"></div>
+            </div>
+            <p id="ttt-status" class="game-status">Turn: X</p>
+            <p id="ttt-score" class="game-status">X: 0 &nbsp;·&nbsp; O: 0 &nbsp;·&nbsp; Draws: 0</p>
           </div>
           <div id="instructions">
             <h2>How to Play</h2>
             <p>First to 3 in a row wins.</p>
-            <p>Game resets after a win or draw.</p>
+            <p>Click any cell after a win or draw to play again.</p>
           </div>
         </div>
         <script src="tictactoe.js"></script>
@@ -73,6 +81,7 @@
         <button onclick="checkGuess()">Guess</button>
         <button onclick="resetGame()">Reset</button>
         <p id="result"></p>
+        <p id="best-score" class="game-status"></p>
         <script src="random.js"></script>
       </section>
     </div>

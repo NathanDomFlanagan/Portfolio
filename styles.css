@@ -65,7 +65,7 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-a:focus-visible, button:focus-visible {
+a:focus-visible, button:focus-visible, .cell:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
   border-radius: var(--radius);
@@ -417,6 +417,18 @@ canvas {
 }
 
 .cell:hover { background: var(--bg-off); }
+
+.cell.win {
+  background: var(--bg-off);
+  border-color: var(--ink);
+}
+
+.game-status {
+  margin-top: 0.6rem;
+  font-family: var(--mono-font);
+  font-size: 0.82rem;
+  color: var(--subtle);
+}
 
 #guess {
   background: var(--bg);
