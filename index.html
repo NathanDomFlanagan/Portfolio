@@ -13,20 +13,7 @@
     </script>
   </head>
   <body>
-    <nav class="navbar">
-      <a class="nav-brand" href="index.html">Nathan.</a>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="game.html">Games</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
-      </div>
-    </nav>
+    <script src="navbar.js"></script>
 
     <section class="hero">
       <h1>Hi, I'm <em>Nathan.</em></h1>
@@ -37,7 +24,7 @@
       <section>
         <h2>Getting started</h2>
         <p class="about-text">
-          Kia Ora! Welcome to my Portfolio Website. To choose your preffered site to light or dark you click the icon on the top right.
+          Kia Ora! Welcome to my Portfolio Website. To choose your preferred site to light or dark you click the icon on the top right.
           Navigation to each tab is on the top, feel free to look around and once again welcome!
         </p>
       </section>
@@ -63,26 +50,5 @@
     </div>
 
     <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
-
-    <script>
-      document.getElementById("nav-toggle").addEventListener("click", function () {
-        document.getElementById("nav-links").classList.toggle("open");
-      });
-      var root = document.documentElement;
-      var btn  = document.getElementById("theme-toggle");
-      function getTheme() {
-        if (root.hasAttribute("data-theme")) return root.getAttribute("data-theme");
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-      function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-        btn.textContent = theme === "dark" ? "◑" : "◐";
-      }
-      applyTheme(getTheme());
-      btn.addEventListener("click", function () {
-        applyTheme(getTheme() === "dark" ? "light" : "dark");
-      });
-    </script>
   </body>
 </html>

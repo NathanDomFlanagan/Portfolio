@@ -29,13 +29,11 @@ Portfolio/
 ├── contact.html          # Contact page
 ├── game.html             # Mini-games page
 ├── 404.html               # Custom 404 page
-├── navbar.js              # Shared navigation bar logic
-├── smoothScrolling.js      # Smooth scroll behaviour
+├── navbar.js              # Shared navigation bar + theme toggle logic
 ├── random.js                # Random number generator game logic
 ├── snake.js                   # Snake game logic
 ├── tictactoe.js                # Tic-Tac-Toe game logic
-├── styles.css                    # Site-wide styling
-└── package.json                    # Project dependencies
+└── styles.css                    # Site-wide styling
 ```
 
 ## Live Site

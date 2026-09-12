@@ -13,20 +13,7 @@
     </script>
   </head>
   <body>
-    <nav class="navbar">
-      <a class="nav-brand" href="index.html">Nathan.</a>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="game.html">Games</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">◐</button>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
-      </div>
-    </nav>
+    <script src="navbar.js"></script>
 
     <div class="page-header">
       <h1>My <span class="accent">Projects</span></h1>
@@ -43,10 +30,26 @@
             </div>
             <span class="card-arrow">→</span>
           </a>
+          <a class="card" href="https://github.com/NathanDomFlanagan/BootUpSoftware" target="_blank" rel="noopener noreferrer">
+            <div class="card-info">
+              <span class="card-name">BootUpSoftware</span>
+              <span class="card-desc">AThis will query me on what I would like to do on my computer 
+                and start up the following applications needed for faster productivity</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </a>
           <a class="card" href="https://github.com/NathanDomFlanagan/PasswordTesterApp" target="_blank" rel="noopener noreferrer">
             <div class="card-info">
               <span class="card-name">Password Tester App</span>
-              <span class="card-desc">Simple password strength testing GUI</span>
+              <span class="card-desc">A basic password checker application</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </a>
+          <a class="card" href="https://github.com/NathanDomFlanagan/file-organiser" target="_blank" rel="noopener noreferrer">
+            <div class="card-info">
+              <span class="card-name">file-organiser</span>
+              <span class="card-desc">A Windows tray app that watches your Downloads folder 
+                and automatically sorts new files into subfolders by type</span>
             </div>
             <span class="card-arrow">→</span>
           </a>
@@ -62,26 +65,5 @@
     </div>
 
     <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
-
-    <script>
-      document.getElementById("nav-toggle").addEventListener("click", function () {
-        document.getElementById("nav-links").classList.toggle("open");
-      });
-      var root = document.documentElement;
-      var btn  = document.getElementById("theme-toggle");
-      function getTheme() {
-        if (root.hasAttribute("data-theme")) return root.getAttribute("data-theme");
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-      function applyTheme(theme) {
-        root.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-        btn.textContent = theme === "dark" ? "◑" : "◐";
-      }
-      applyTheme(getTheme());
-      btn.addEventListener("click", function () {
-        applyTheme(getTheme() === "dark" ? "light" : "dark");
-      });
-    </script>
   </body>
 </html>
