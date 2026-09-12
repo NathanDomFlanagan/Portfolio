@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects — Nathan Flanagan</title>
+    <meta name="description" content="A showcase of personal projects by Nathan Flanagan, including automation tools, a password strength tester, and this portfolio site." />
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nathandomflanagan.github.io/Portfolio/projects.html" />
+    <meta property="og:title" content="Projects — Nathan Flanagan" />
+    <meta property="og:description" content="A showcase of personal projects by Nathan Flanagan, including automation tools, a password strength tester, and this portfolio site." />
+    <meta property="og:image" content="https://nathandomflanagan.github.io/Portfolio/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Projects — Nathan Flanagan" />
+    <meta name="twitter:description" content="A showcase of personal projects by Nathan Flanagan, including automation tools, a password strength tester, and this portfolio site." />
+    <meta name="twitter:image" content="https://nathandomflanagan.github.io/Portfolio/og-image.png" />
+
     <link rel="stylesheet" href="styles.css" />
     <script>
       (function () {
@@ -15,6 +30,7 @@
   <body>
     <script src="navbar.js"></script>
 
+    <main>
     <div class="page-header">
       <h1>My <span class="accent">Projects</span></h1>
     </div>
@@ -22,48 +38,103 @@
     <div class="content">
       <section>
         <h2>Personal Projects</h2>
-        <div class="card-list">
-          <a class="card" href="https://github.com/NathanDomFlanagan/Portfolio" target="_blank" rel="noopener noreferrer">
-            <div class="card-info">
-              <span class="card-name">Portfolio Website</span>
-              <span class="card-desc">This site — built with HTML, CSS &amp; JS</span>
+        <div class="project-list">
+          <article class="project-card">
+            <a class="project-thumb" href="images/portfolio.png" target="_blank" rel="noopener noreferrer">
+              <img src="images/portfolio.png" alt="Portfolio website screenshot — click to view full size" />
+            </a>
+            <div class="project-body">
+              <h3 class="project-name">Portfolio Website</h3>
+              <p class="project-summary">
+                This site — a vanilla HTML, CSS &amp; JS portfolio with a shared navbar component, a
+                custom light/dark theme built on CSS variables, and a few browser mini-games, hosted
+                on GitHub Pages.
+              </p>
+              <div class="project-meta">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <a class="project-link" href="https://github.com/NathanDomFlanagan/Portfolio" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
             </div>
-            <span class="card-arrow">→</span>
-          </a>
-          <a class="card" href="https://github.com/NathanDomFlanagan/BootUpSoftware" target="_blank" rel="noopener noreferrer">
-            <div class="card-info">
-              <span class="card-name">BootUpSoftware</span>
-              <span class="card-desc">AThis will query me on what I would like to do on my computer 
-                and start up the following applications needed for faster productivity</span>
+          </article>
+
+          <article class="project-card">
+            <a class="project-thumb" href="images/bootupsoftware.png" target="_blank" rel="noopener noreferrer">
+              <img src="images/bootupsoftware.png" alt="BootUpSoftware app screenshot — click to view full size" />
+            </a>
+            <div class="project-body">
+              <h3 class="project-name">BootUpSoftware</h3>
+              <p class="project-summary">
+                A Windows desktop app for grouping installed programs into categories and launch-ready
+                profiles, so a whole set of apps opens with a single click instead of launching each one
+                by hand. Settings persist to a JSON config with automatic migration from older versions,
+                and an in-memory undo history lets you recover accidentally removed entries.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">ttkbootstrap</span>
+                <span class="tag">Windows</span>
+              </div>
+              <a class="project-link" href="https://github.com/NathanDomFlanagan/BootUpSoftware" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
             </div>
-            <span class="card-arrow">→</span>
-          </a>
-          <a class="card" href="https://github.com/NathanDomFlanagan/PasswordTesterApp" target="_blank" rel="noopener noreferrer">
-            <div class="card-info">
-              <span class="card-name">Password Tester App</span>
-              <span class="card-desc">A basic password checker application</span>
+          </article>
+
+          <article class="project-card">
+            <a class="project-thumb" href="images/passwordtesterapp.png" target="_blank" rel="noopener noreferrer">
+              <img src="images/passwordtesterapp.png" alt="Password Tester App screenshot — click to view full size" />
+            </a>
+            <div class="project-body">
+              <h3 class="project-name">Password Tester App</h3>
+              <p class="project-summary">
+                A desktop password strength checker and generator. Alongside local complexity checks
+                (length, character diversity), it checks entered passwords against the Have I Been Pwned
+                breach database using k-anonymity — hashing the password locally and sending only the
+                first 5 characters of that hash, so the real password never leaves the machine. Also
+                generates cryptographically secure passwords via Python's <code>secrets</code> module.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">CustomTkinter</span>
+                <span class="tag">Security</span>
+              </div>
+              <a class="project-link" href="https://github.com/NathanDomFlanagan/PasswordTesterApp" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
             </div>
-            <span class="card-arrow">→</span>
-          </a>
-          <a class="card" href="https://github.com/NathanDomFlanagan/file-organiser" target="_blank" rel="noopener noreferrer">
-            <div class="card-info">
-              <span class="card-name">file-organiser</span>
-              <span class="card-desc">A Windows tray app that watches your Downloads folder 
-                and automatically sorts new files into subfolders by type</span>
+          </article>
+
+          <article class="project-card">
+            <a class="project-thumb" href="images/file-organiser.png" target="_blank" rel="noopener noreferrer">
+              <img src="images/file-organiser.png" alt="file-organiser Windows 11 toast notification — click to view full size" />
+            </a>
+            <div class="project-body">
+              <h3 class="project-name">file-organiser</h3>
+              <p class="project-summary">
+                A Windows system tray utility that watches the Downloads folder in real time and
+                automatically sorts new files into category subfolders (Pictures, Documents, Videos,
+                etc.) based on file extension, with OneDrive-aware routing. Includes an undo history for
+                the last 20 moves, native Windows 11 toast notifications, and a settings window for
+                customizing file-type rules without touching a config file directly.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">Windows</span>
+                <span class="tag">Automation</span>
+              </div>
+              <a class="project-link" href="https://github.com/NathanDomFlanagan/file-organiser" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
             </div>
-            <span class="card-arrow">→</span>
-          </a>
-          <a class="card" href="https://github.com/NathanDomFlanagan/BatchScripts" target="_blank" rel="noopener noreferrer">
-            <div class="card-info">
-              <span class="card-name">Batch Scripts</span>
-              <span class="card-desc">Collection of Windows batch automation scripts</span>
-            </div>
-            <span class="card-arrow">→</span>
-          </a>
+          </article>
         </div>
       </section>
     </div>
+    </main>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project screenshot" hidden>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <a class="lightbox-open" id="lightbox-open" href="#" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    </div>
 
     <footer><p>Nathan Flanagan &nbsp;·&nbsp; Auckland, NZ</p></footer>
+    <script src="lightbox.js"></script>
   </body>
 </html>

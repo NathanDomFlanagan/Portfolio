@@ -9,6 +9,7 @@
     { href: 'projects.html', label: 'Projects' },
     { href: 'game.html', label: 'Games' },
     { href: 'contact.html', label: 'Contact' },
+    { href: 'resume.html', label: 'Resume' },
   ];
 
   // Figure out which page we're on
@@ -21,7 +22,7 @@
     <a class="nav-brand" href="index.html">Nathan.</a>
     <ul class="nav-links" id="nav-links">
       ${links.map(link => `
-        <li><a href="${link.href}" ${link.href === currentPage ? 'class="active"' : ''}>${link.label}</a></li>
+        <li><a href="${link.href}" ${link.newTab ? 'target="_blank" rel="noopener noreferrer"' : ''} ${link.href === currentPage ? 'class="active"' : ''}>${link.label}</a></li>
       `).join('')}
     </ul>
     <div class="nav-right">
