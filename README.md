@@ -8,9 +8,10 @@ A multi-page site built with vanilla HTML, CSS, and JavaScript (no framework req
 
 - **Home** (`index.html`) — landing page
 - **About** (`about.html`) — background and skills
-- **Projects** (`projects.html`) — showcase of projects I've built
+- **Projects** (`projects.html`) — case studies for personal projects, each with a screenshot, write-up, and tech tags
+- **Resume** (`resume.html`) — résumé viewable inline (PDF embed) with a direct download link
 - **Contact** (`contact.html`) — ways to get in touch
-- **Game** (`game.html`) — a few playable browser games (Snake, Tic-Tac-Toe, and a random number generator game) as a fun extra
+- **Game** (`game.html`) — a few playable browser games (Snake, Tic-Tac-Toe, and a Number Guesser) as a fun extra
 - **404** (`404.html`) — custom not-found page
 
 ## Tech Stack
@@ -18,22 +19,28 @@ A multi-page site built with vanilla HTML, CSS, and JavaScript (no framework req
 - HTML5 / CSS3
 - Vanilla JavaScript
 - No build step required — pages run directly in the browser
+- Favicon + Open Graph/Twitter card metadata on every page for rich link previews when shared
 
 ## Project Structure
 
 ```
 Portfolio/
-├── index.html          # Home page
-├── about.html           # About page
-├── projects.html         # Projects showcase
-├── contact.html          # Contact page
-├── game.html             # Mini-games page
-├── 404.html               # Custom 404 page
-├── navbar.js              # Shared navigation bar + theme toggle logic
-├── random.js                # Random number generator game logic
-├── snake.js                   # Snake game logic
-├── tictactoe.js                # Tic-Tac-Toe game logic
-└── styles.css                    # Site-wide styling
+├── index.html                    # Home page
+├── about.html                    # About page
+├── projects.html                 # Projects showcase (case studies)
+├── resume.html                   # Résumé viewer page
+├── contact.html                  # Contact page
+├── game.html                     # Mini-games page
+├── 404.html                      # Custom 404 page
+├── navbar.js                     # Shared navigation bar + theme toggle logic
+├── lightbox.js                   # Full-screen image viewer for project screenshots
+├── random.js                     # Number Guesser game logic
+├── snake.js                      # Snake game logic
+├── tictactoe.js                  # Tic-Tac-Toe game logic
+├── styles.css                    # Site-wide styling
+├── favicon.png                   # Site favicon
+├── images/                       # Project screenshots + social share preview image
+└── files/                        # Downloadable documents (résumé PDF)
 ```
 
 ## Live Site
