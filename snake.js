@@ -3,7 +3,9 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreEl = document.getElementById('snake-score');
+const bestEl = document.getElementById('snake-best');
 const statusEl = document.getElementById('snake-status');
+const controlsEl = document.querySelector('.snake-controls');
 
 // Set the canvas dimensions
 canvas.width = 400;
@@ -17,13 +19,16 @@ const START_SNAKE = [
   { x: 160, y: 200 }
 ];
 
+const OPPOSITE = { up: 'down', down: 'up', left: 'right', right: 'left' };
+
 // Define the snake and food objects
 let snake = START_SNAKE.map(seg => ({ ...seg }));
 let food = spawnFood();
 
 // Define the game variables
 let score = 0;
-let direction = 'right';
+let direction = 'right';     // the direction actually applied on the last tick
+let nextDirection = 'right'; // queued input, applied once per tick
 let paused = true;
 let speed = 100;
 
@@ -31,8 +36,27 @@ function updateScore() {
   scoreEl.textContent = 'Score: ' + score;
 }
 
+function updateBestDisplay() {
+  const best = localStorage.getItem('snake-best');
+  bestEl.textContent = best ? 'Best: ' + best : '';
+}
+
 function setStatus(text) {
   statusEl.textContent = text;
+}
+
+// Only accept a turn if it isn't a direct reversal of the snake's actual
+// last movement — validating against a queued-but-not-yet-applied direction
+// would let two quick 90-degree turns add up to an effective 180 reversal.
+function requestDirection(dir) {
+  if (dir !== OPPOSITE[direction]) {
+    nextDirection = dir;
+  }
+}
+
+function togglePause() {
+  paused = !paused;
+  setStatus(paused ? 'Paused. Press E to resume.' : '');
 }
 
 // Pick a food tile that isn't currently under the snake
@@ -47,6 +71,9 @@ function spawnFood() {
 // Main game loop
 function tick() {
   if (!paused) {
+    // Apply the queued direction once per tick
+    direction = nextDirection;
+
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -86,8 +113,15 @@ function tick() {
 
     // Check for collision with wall or self
     if (snake[0].x < 0 || snake[0].x >= canvas.width || snake[0].y < 0 || snake[0].y >= canvas.height || checkCollision(snake[0], snake.slice(1))) {
+      const best = localStorage.getItem('snake-best');
+      if (!best || score > Number(best)) {
+        localStorage.setItem('snake-best', String(score));
+        updateBestDisplay();
+      }
       setStatus('Game over! Score: ' + score + '. Press E to play again.');
       snake = START_SNAKE.map(seg => ({ ...seg }));
+      direction = 'right';
+      nextDirection = 'right';
       food = spawnFood();
       score = 0;
       updateScore();
@@ -99,6 +133,7 @@ function tick() {
 }
 
 updateScore();
+updateBestDisplay();
 tick();
 
 // Check for collision with self
@@ -114,21 +149,24 @@ function checkCollision(head, body) {
 // Handle keyboard input (WASD or arrow keys)
 document.addEventListener('keydown', (e) => {
   const key = e.key.toLowerCase();
-  if (key === 'w' || key === 'arrowup') {
-    if (direction !== 'down') direction = 'up';
-  } else if (key === 's' || key === 'arrowdown') {
-    if (direction !== 'up') direction = 'down';
-  } else if (key === 'a' || key === 'arrowleft') {
-    if (direction !== 'right') direction = 'left';
-  } else if (key === 'd' || key === 'arrowright') {
-    if (direction !== 'left') direction = 'right';
-  } else if (key === 'e') {
-    paused = !paused;
-    setStatus(paused ? 'Paused. Press E to resume.' : '');
-  } else {
-    return;
-  }
+  if (key === 'w' || key === 'arrowup') requestDirection('up');
+  else if (key === 's' || key === 'arrowdown') requestDirection('down');
+  else if (key === 'a' || key === 'arrowleft') requestDirection('left');
+  else if (key === 'd' || key === 'arrowright') requestDirection('right');
+  else if (key === 'e') togglePause();
+  else return;
   if (key.startsWith('arrow')) e.preventDefault();
 });
+
+// On-screen D-pad for touch devices
+if (controlsEl) {
+  controlsEl.querySelectorAll('[data-dir]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      requestDirection(btn.dataset.dir);
+    });
+  });
+  const pauseBtn = controlsEl.querySelector('[data-action="pause"]');
+  if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+}
 
 })();

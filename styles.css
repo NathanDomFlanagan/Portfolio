@@ -542,6 +542,8 @@ canvas {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .game-container {
@@ -601,6 +603,34 @@ canvas {
   font-size: 0.82rem;
   color: var(--subtle);
 }
+
+/* On-screen D-pad for Snake — hidden on mouse-driven devices, shown for touch */
+.snake-controls {
+  display: none;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+@media (pointer: coarse) {
+  .snake-controls { display: grid; }
+}
+
+.snake-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.snake-btn-up    { grid-column: 2; grid-row: 1; }
+.snake-btn-left  { grid-column: 1; grid-row: 2; }
+.snake-btn-pause { grid-column: 2; grid-row: 2; }
+.snake-btn-right { grid-column: 3; grid-row: 2; }
+.snake-btn-down  { grid-column: 2; grid-row: 3; }
 
 #guess {
   background: var(--bg);

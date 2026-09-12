@@ -42,11 +42,19 @@
           <div>
             <canvas id="gameCanvas" width="400" height="400"></canvas>
             <p id="snake-score" class="game-status">Score: 0</p>
+            <p id="snake-best" class="game-status"></p>
             <p id="snake-status" class="game-status">Press E to start.</p>
+            <div class="snake-controls">
+              <button class="snake-btn snake-btn-up" data-dir="up" aria-label="Move up">▲</button>
+              <button class="snake-btn snake-btn-left" data-dir="left" aria-label="Move left">◀</button>
+              <button class="snake-btn snake-btn-pause" data-action="pause" aria-label="Pause or resume">⏯</button>
+              <button class="snake-btn snake-btn-right" data-dir="right" aria-label="Move right">▶</button>
+              <button class="snake-btn snake-btn-down" data-dir="down" aria-label="Move down">▼</button>
+            </div>
           </div>
           <div id="instructions">
             <h2>How to Play</h2>
-            <p>Use the keys to move the snake:</p>
+            <p>Use the keys to move the snake (or the on-screen arrows on touch devices):</p>
             <ul>
               <li>Up: <strong>W</strong></li>
               <li>Down: <strong>S</strong></li>
