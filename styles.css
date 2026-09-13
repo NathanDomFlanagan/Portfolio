@@ -487,6 +487,35 @@ a.project-thumb:hover {
   margin-top: 1.25rem;
 }
 
+/* The heatmap's cell colours are a fixed palette baked into the SVG itself —
+   there's no theme param for it — so the frame uses the normal --bg-off
+   token (flips with theme like everything else) and, in dark mode, the image
+   itself is inverted + hue-rotated back so its greens land close to their
+   original hue instead of coming out inverted-magenta. */
+.github-heatmap-frame {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: var(--bg-off);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 100%;
+  overflow-x: auto;
+  transition: var(--theme-transition);
+}
+
+.github-heatmap-frame .github-embed { margin-top: 0; }
+
+:root[data-theme="dark"] .github-heatmap-frame img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .github-heatmap-frame img {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
 /* ---- RESUME ---- */
 .resume-actions {
   display: flex;

@@ -183,8 +183,18 @@
       <section>
         <h2>GitHub Activity</h2>
         <p class="project-summary">A live look at my public GitHub activity.</p>
-        <img id="github-stats-card" class="github-embed" src="" alt="Nathan Flanagan's GitHub stats" loading="lazy" />
-        <img class="github-embed" src="https://ghchart.rshah.org/NathanDomFlanagan" alt="Nathan Flanagan's GitHub contribution heatmap" loading="lazy" />
+
+        <img
+          class="github-embed reactive-embed"
+          data-src-light="https://github-stats-extended.vercel.app/api?username=NathanDomFlanagan&hide_border=true&bg_color=ffffff&title_color=111110&text_color=6e6e6b&icon_color=6e6e6b"
+          data-src-dark="https://github-stats-extended.vercel.app/api?username=NathanDomFlanagan&hide_border=true&bg_color=111110&title_color=f0f0ee&text_color=8a8a86&icon_color=8a8a86"
+          alt="Nathan Flanagan's GitHub stats"
+          loading="lazy"
+        />
+
+        <div class="github-heatmap-frame">
+          <img class="github-embed" src="https://ghchart.rshah.org/NathanDomFlanagan" alt="Nathan Flanagan's GitHub contribution heatmap" loading="lazy" />
+        </div>
       </section>
     </div>
     </main>
