@@ -4,12 +4,16 @@
 
 (function () {
   const links = [
-    { href: 'index.html', label: 'Home' },
-    { href: 'about.html', label: 'About' },
-    { href: 'projects.html', label: 'Projects' },
-    { href: 'game.html', label: 'Games' },
-    { href: 'contact.html', label: 'Contact' },
-    { href: 'resume.html', label: 'Resume' },
+    // path: '' overrides href for the actual link target only, so Home
+    // resolves to the clean site root (GitHub Pages serves index.html there
+    // without it ever appearing in the URL) while href stays 'index.html'
+    // for matching against currentPage below.
+    { href: 'index.html', path: '', label: 'Home' },
+    { href: 'about/', label: 'About' },
+    { href: 'projects/', label: 'Projects' },
+    { href: 'game/', label: 'Games' },
+    { href: 'contact/', label: 'Contact' },
+    { href: 'resume/', label: 'Resume' },
   ];
 
   // localStorage throws in Safari private mode and wherever site data is
@@ -54,10 +58,10 @@
   const nav = document.createElement('nav');
   nav.className = 'navbar';
   nav.innerHTML = `
-    <a class="nav-brand" href="${url('index.html')}">Nathan.</a>
+    <a class="nav-brand" href="${url('')}">Nathan.</a>
     <ul class="nav-links" id="nav-links">
       ${links.map(link => `
-        <li><a href="${url(link.href)}"${link.href === currentPage ? ' class="active" aria-current="page"' : ''}>${link.label}</a></li>
+        <li><a href="${url(link.path ?? link.href)}"${link.href === currentPage ? ' class="active" aria-current="page"' : ''}>${link.label}</a></li>
       `).join('')}
     </ul>
     <div class="nav-right">

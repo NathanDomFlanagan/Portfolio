@@ -219,6 +219,12 @@ function ownsKeystrokes(target) {
   if (target.isContentEditable) return true;
   if (/^(input|textarea|select)$/i.test(target.tagName || '')) return true;
   if (!target.matches || !target.matches('a[href], button, [tabindex]')) return false;
+  // Clicking anywhere non-focusable (the canvas included) falls through to the
+  // nearest focusable ANCESTOR — typically <main tabindex="-1">, there for the
+  // skip-link — which then matches the [tabindex] check above. That's not a
+  // sibling widget stealing input, it's the landmark Snake itself lives inside,
+  // so it must never count as "owning" keystrokes away from Snake.
+  if (target.contains(snakeRoot)) return false;
   return !snakeRoot.contains(target);
 }
 
