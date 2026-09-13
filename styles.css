@@ -460,12 +460,23 @@ a.project-thumb:hover {
   margin-bottom: 1rem;
 }
 
+/* Whether a browser renders an inline PDF at all is a capability, not
+   something CSS can detect — viewport width is only a rough proxy for "mobile"
+   and gets it wrong both ways (a narrowed desktop window loses a working
+   embed; a landscape phone keeps a broken one). So this is sized to stay
+   modest rather than hidden: on a browser that can't render it, an empty
+   18.75rem box next to the links above costs little; on one that can, 85vh
+   would only be worth it on a screen tall enough to make use of it. */
 .resume-embed {
   display: block;
   width: 100%;
-  height: 85vh;
+  height: min(85vh, 18.75rem);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+}
+
+@media (min-height: 700px) {
+  .resume-embed { height: 85vh; }
 }
 
 /* ---- LIGHTBOX ---- */
@@ -651,7 +662,7 @@ canvas {
 .instructions h3 {
   font-family: var(--mono-font);
   font-size: 0.68rem;
-  color: var(--muted);
+  color: var(--subtle);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
@@ -787,11 +798,6 @@ button:hover { background: var(--bg-off); border-color: var(--subtle); }
   .contact-card:last-child { border-bottom: none; }
   .contact-card::after { display: none; }
   .game-container { flex-direction: column; }
-
-  /* Mobile browsers decline to render an inline PDF but do NOT swap in the
-     <object>'s fallback content, leaving a blank 85vh box. Drop the embed
-     entirely below this width and let the download/open links carry the page. */
-  .resume-embed { display: none; }
   .project-card { flex-direction: column; }
   .project-thumb { flex-basis: auto; width: 100%; }
   footer { flex-direction: column; gap: 0.25rem; text-align: center; }
