@@ -1,11 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap');
+/* Fonts are loaded from a <link> in each page's <head>. An @import here would
+   serialise the requests — HTML, then this file, then the font CSS, then the
+   font files — so the browser can't start on them until the CSS has parsed. */
 
 /* ---- LIGHT TOKENS (default) ---- */
+/* --muted is for non-text UI only (borders, dividers, decorative glyphs); it
+   clears 3:1 but not the 4.5:1 that body text needs. Anything a reader has to
+   actually read uses --subtle, which measures 5.1:1 on both backgrounds. */
 :root {
   --bg:       #ffffff;
   --bg-off:   #f7f7f6;
   --border:   #e8e8e6;
-  --muted:    #b0b0ad;
+  --muted:    #949491;
   --subtle:   #6e6e6b;
   --ink:      #111110;
 
@@ -17,6 +22,10 @@
   --max-width:  820px;
   --radius:     4px;
   --transition: 0.18s ease;
+  /* Duplicate entries in a transition list are last-wins, and this expands to
+     three of the properties elements commonly animate on hover. It therefore
+     always goes FIRST in a transition shorthand, so a per-property override
+     after it actually takes effect instead of being silently swallowed. */
   --theme-transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -25,7 +34,7 @@
   --bg:       #111110;
   --bg-off:   #1a1a18;
   --border:   #2a2a28;
-  --muted:    #4a4a47;
+  --muted:    #6a6a67;
   --subtle:   #8a8a86;
   --ink:      #f0f0ee;
 }
@@ -36,7 +45,7 @@
     --bg:       #111110;
     --bg-off:   #1a1a18;
     --border:   #2a2a28;
-    --muted:    #4a4a47;
+    --muted:    #6a6a67;
     --subtle:   #8a8a86;
     --ink:      #f0f0ee;
   }
@@ -46,17 +55,47 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+/* Smooth scrolling and the page-load fade are motion the visitor didn't ask
+   for, so both are dropped for anyone who has asked their OS to reduce it.
+   Transitions are collapsed rather than removed so state changes still land. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ---- BASE ---- */
+/* Flex column so the footer sits at the bottom of short pages without being
+   position: fixed and permanently eating a strip of the viewport. */
 body {
   font-family: var(--body-font);
   font-weight: 300;
   background: var(--bg);
   color: var(--ink);
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.7;
   animation: fadeUp 0.5s ease backwards;
   transition: var(--theme-transition);
 }
+
+/* The skip link targets #main and .navbar is sticky at the top of the viewport,
+   so without scroll-margin the jump tucks the first 56px of content underneath
+   it. The outline is suppressed because tabindex="-1" is only there to give the
+   skip link somewhere to land, not to mark main as interactive. */
+main {
+  flex: 1 0 auto;
+  scroll-margin-top: var(--nav-height);
+}
+
+main:focus { outline: none; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
@@ -64,6 +103,44 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ---- SKIP LINK ---- */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: -9999px;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.skip-link:focus { left: 0.5rem; }
+
+/* ---- NOSCRIPT FALLBACK ---- */
+/* The navbar is injected by navbar.js, so without JS there'd be no way out of
+   whichever page you landed on. */
+.noscript-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  list-style: none;
+  padding: 0.85rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.noscript-nav a { color: var(--subtle); text-decoration: underline; }
 
 code {
   font-family: var(--mono-font);
@@ -84,6 +161,7 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
   position: sticky;
   top: 0;
   z-index: 100;
+  flex: none;
   height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -167,6 +245,7 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
   font-size: 1rem;
   padding: 0.3rem 0.65rem;
   cursor: pointer;
+  margin: 0; /* the generic button rule below would add a trailing margin */
 }
 
 /* ---- HERO ---- */
@@ -227,7 +306,7 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
 .content {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 2.5rem 7rem;
+  padding: 0 2.5rem 4rem;
 }
 
 /* ---- SECTIONS ---- */
@@ -282,7 +361,7 @@ section h2 {
 
 .card-arrow {
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--subtle);
   transition: color var(--transition), transform var(--transition);
 }
 
@@ -316,17 +395,15 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
+  /* Even matting on all four sides. text-align is for the broken-image path —
+     it centres the alt text if a screenshot ever fails to load. */
+  padding: 0.75rem;
   text-align: center;
-  border: 1px dashed var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-off);
   overflow: hidden;
   transition: border-color var(--transition);
-}
-
-.project-thumb:has(img) {
-  border-style: solid;
 }
 
 a.project-thumb:hover {
@@ -337,14 +414,6 @@ a.project-thumb:hover {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.project-thumb-placeholder {
-  font-family: var(--mono-font);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
 }
 
 .project-body { flex: 1; min-width: 0; }
@@ -384,11 +453,17 @@ a.project-thumb:hover {
 .project-link:hover { color: var(--ink); }
 
 /* ---- RESUME ---- */
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
 .resume-embed {
   display: block;
   width: 100%;
   height: 85vh;
-  margin-top: 1rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
@@ -483,24 +558,44 @@ a.project-thumb:hover {
 }
 
 /* ---- CONTACT ---- */
+/* auto-fit means the column count changes with the viewport, so the divider is
+   drawn 1px outside each card's right edge and clipped here. That trims the
+   last card of EVERY row; a :last-child rule would only ever catch the final
+   card of the final row and leave a dangling divider on the rows above. */
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0;
+  overflow: hidden;
 }
 
 .contact-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   padding: 1.25rem 1.25rem 1.25rem 0;
-  border-right: 1px solid var(--border);
   text-decoration: none;
-  transition: padding-left var(--transition), border-color 0.3s ease;
+  transition: padding-left var(--transition);
 }
 
-.contact-card:last-child { border-right: none; }
+.contact-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  width: 1px;
+  background: var(--border);
+  transition: background 0.3s ease;
+}
+
 .contact-card:hover { padding-left: 0.5rem; }
+
+/* Each card sits flush with the grid's edges, so the default outward offset
+   would be clipped by the overflow: hidden that trims the dividers. Draw the
+   focus ring just inside the card instead. */
+.contact-card:focus-visible { outline-offset: -2px; }
 
 .contact-label {
   font-family: var(--mono-font);
@@ -519,9 +614,7 @@ a.project-thumb:hover {
 
 /* ---- FOOTER ---- */
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  flex: none;
   width: 100%;
   padding: 0.75rem 2.5rem;
   background: var(--bg);
@@ -553,9 +646,9 @@ canvas {
   flex-wrap: wrap;
 }
 
-#instructions { font-size: 0.85rem; color: var(--subtle); }
+.instructions { font-size: 0.85rem; color: var(--subtle); }
 
-#instructions h2 {
+.instructions h3 {
   font-family: var(--mono-font);
   font-size: 0.68rem;
   color: var(--muted);
@@ -564,8 +657,7 @@ canvas {
   margin-bottom: 0.75rem;
 }
 
-#instructions h2::before { display: none; }
-#instructions ul { margin: 0.4rem 0 0.75rem 1.1rem; line-height: 2; }
+.instructions ul { margin: 0.4rem 0 0.75rem 1.1rem; line-height: 2; }
 
 .board {
   display: grid;
@@ -587,7 +679,7 @@ canvas {
   cursor: pointer;
   background: var(--bg);
   color: var(--ink);
-  transition: background var(--transition), var(--theme-transition);
+  transition: var(--theme-transition), background var(--transition);
 }
 
 .cell:hover { background: var(--bg-off); }
@@ -642,7 +734,7 @@ canvas {
   font-size: 0.9rem;
   margin-right: 0.5rem;
   outline: none;
-  transition: border-color var(--transition), var(--theme-transition);
+  transition: var(--theme-transition), border-color var(--transition);
 }
 
 #guess:focus { border-color: var(--subtle); }
@@ -658,7 +750,7 @@ button {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background var(--transition), border-color var(--transition), var(--theme-transition);
+  transition: var(--theme-transition), background var(--transition), border-color var(--transition);
   margin-right: 0.4rem;
 }
 
@@ -691,8 +783,15 @@ button:hover { background: var(--bg-off); border-color: var(--subtle); }
   .hero, .page-header { padding-left: 1.25rem; padding-right: 1.25rem; }
   .content { padding-left: 1.25rem; padding-right: 1.25rem; }
   .contact-grid { grid-template-columns: 1fr; }
-  .contact-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .contact-card { border-bottom: 1px solid var(--border); }
+  .contact-card:last-child { border-bottom: none; }
+  .contact-card::after { display: none; }
   .game-container { flex-direction: column; }
+
+  /* Mobile browsers decline to render an inline PDF but do NOT swap in the
+     <object>'s fallback content, leaving a blank 85vh box. Drop the embed
+     entirely below this width and let the download/open links carry the page. */
+  .resume-embed { display: none; }
   .project-card { flex-direction: column; }
   .project-thumb { flex-basis: auto; width: 100%; }
   footer { flex-direction: column; gap: 0.25rem; text-align: center; }

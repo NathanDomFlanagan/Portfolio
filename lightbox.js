@@ -24,15 +24,40 @@
 
   function closeLightbox() {
     overlay.hidden = true;
-    imgEl.src = '';
+    // removeAttribute, not src = '' — an empty src resolves to the current
+    // document URL, so the browser re-requests the whole page behind the scenes.
+    imgEl.removeAttribute('src');
+    imgEl.alt = '';
     document.body.style.overflow = '';
     if (lastFocused) lastFocused.focus();
   }
 
+  // The overlay claims aria-modal, so Tab has to stay inside it — otherwise
+  // focus walks straight out into the page hidden behind it.
+  function trapFocus(e) {
+    const items = overlay.querySelectorAll('a[href], button');
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+
+    if (!overlay.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
   document.querySelectorAll('.project-thumb[href]').forEach(function (thumb) {
     thumb.addEventListener('click', function (e) {
-      // Let the browser handle new-tab/new-window requests natively
-      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+      // Let the browser handle new-tab/new-window requests natively. Middle
+      // click needs no check here — it fires auxclick, never click, so it
+      // reaches the browser untouched already.
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return;
       e.preventDefault();
       openLightbox(thumb);
     });
@@ -45,6 +70,8 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !overlay.hidden) closeLightbox();
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'Tab') trapFocus(e);
   });
 })();

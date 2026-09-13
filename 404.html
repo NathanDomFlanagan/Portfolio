@@ -6,14 +6,42 @@
     <title>404 — Nathan Flanagan</title>
     <meta name="description" content="Page not found — Nathan Flanagan's portfolio." />
     <meta name="robots" content="noindex" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="styles.css" />
-    <script>(function(){var s=localStorage.getItem("theme");if(s)document.documentElement.setAttribute("data-theme",s);})();</script>
+
+    <!-- GitHub Pages serves this file for ANY unmatched path, so every URL here
+         is root-relative. Relative ones would resolve against the bogus path
+         (/Portfolio/a/b/) and 404 in turn, leaving an unstyled page. -->
+    <link rel="icon" type="image/png" href="/Portfolio/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
+    />
+    <link rel="stylesheet" href="/Portfolio/styles.css" />
+    <script>
+      try {
+        var s = localStorage.getItem("theme");
+        if (s) document.documentElement.setAttribute("data-theme", s);
+      } catch (e) {
+        /* fall back to prefers-color-scheme */
+      }
+    </script>
   </head>
   <body>
-    <script src="navbar.js"></script>
+    <script src="/Portfolio/navbar.js"></script>
 
-    <main>
+    <noscript>
+      <ul class="noscript-nav">
+        <li><a href="/Portfolio/index.html">Home</a></li>
+        <li><a href="/Portfolio/about.html">About</a></li>
+        <li><a href="/Portfolio/projects.html">Projects</a></li>
+        <li><a href="/Portfolio/game.html">Games</a></li>
+        <li><a href="/Portfolio/contact.html">Contact</a></li>
+        <li><a href="/Portfolio/resume.html">Resume</a></li>
+      </ul>
+    </noscript>
+
+    <main id="main" tabindex="-1">
     <div class="page-header">
       <h1>404 <span class="accent">Not Found</span></h1>
     </div>
@@ -22,7 +50,7 @@
       <section>
         <p class="about-text">The page you're looking for doesn't exist or has been moved.</p>
         <div class="card-list">
-          <a class="card" href="index.html">
+          <a class="card" href="/Portfolio/index.html">
             <div class="card-info">
               <span class="card-name">Back to home</span>
             </div>

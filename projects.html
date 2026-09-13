@@ -19,18 +19,42 @@
     <meta name="twitter:description" content="A showcase of personal projects by Nathan Flanagan, including automation tools, a password strength tester, and this portfolio site." />
     <meta name="twitter:image" content="https://nathandomflanagan.github.io/Portfolio/images/og-image.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script>
+      // Runs before first paint so the saved theme doesn't flash. localStorage
+      // throws wherever site data is blocked, and an uncaught throw here would
+      // leave the page stuck on whatever the media query picked.
       (function () {
-        var saved = localStorage.getItem("theme");
-        if (saved) document.documentElement.setAttribute("data-theme", saved);
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved) document.documentElement.setAttribute("data-theme", saved);
+        } catch (e) {
+          /* fall back to prefers-color-scheme */
+        }
       })();
     </script>
   </head>
   <body>
     <script src="navbar.js"></script>
 
-    <main>
+    <noscript>
+      <ul class="noscript-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="game.html">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </noscript>
+
+    <main id="main" tabindex="-1">
     <div class="page-header">
       <h1>My <span class="accent">Projects</span></h1>
     </div>
@@ -40,8 +64,14 @@
         <h2>Personal Projects</h2>
         <div class="project-list">
           <article class="project-card">
-            <a class="project-thumb" href="images/portfolio.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/portfolio.png" alt="Portfolio website screenshot — click to view full size" />
+            <a class="project-thumb" href="images/portfolio.png" target="_blank" rel="noopener noreferrer"
+               aria-label="Portfolio website screenshot — view full size">
+              <img
+                src="images/portfolio.png"
+                alt="Portfolio website screenshot"
+                width="1888"
+                height="967"
+              />
             </a>
             <div class="project-body">
               <h3 class="project-name">Portfolio Website</h3>
@@ -60,8 +90,16 @@
           </article>
 
           <article class="project-card">
-            <a class="project-thumb" href="images/bootupsoftware.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/bootupsoftware.png" alt="BootUpSoftware app screenshot — click to view full size" />
+            <a class="project-thumb" href="images/bootupsoftware.png" target="_blank" rel="noopener noreferrer"
+               aria-label="BootUpSoftware app screenshot — view full size">
+              <img
+                src="images/bootupsoftware.png"
+                alt="BootUpSoftware app screenshot"
+                width="795"
+                height="623"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
             <div class="project-body">
               <h3 class="project-name">BootUpSoftware</h3>
@@ -81,8 +119,16 @@
           </article>
 
           <article class="project-card">
-            <a class="project-thumb" href="images/passwordtesterapp.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/passwordtesterapp.png" alt="Password Tester App screenshot — click to view full size" />
+            <a class="project-thumb" href="images/passwordtesterapp.png" target="_blank" rel="noopener noreferrer"
+               aria-label="Password Tester App screenshot — view full size">
+              <img
+                src="images/passwordtesterapp.png"
+                alt="Password Tester App screenshot"
+                width="594"
+                height="749"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
             <div class="project-body">
               <h3 class="project-name">Password Tester App</h3>
@@ -103,8 +149,16 @@
           </article>
 
           <article class="project-card">
-            <a class="project-thumb" href="images/file-organiser.png" target="_blank" rel="noopener noreferrer">
-              <img src="images/file-organiser.png" alt="file-organiser Windows 11 toast notification — click to view full size" />
+            <a class="project-thumb" href="images/file-organiser.png" target="_blank" rel="noopener noreferrer"
+               aria-label="file-organiser Windows 11 toast notification — view full size">
+              <img
+                src="images/file-organiser.png"
+                alt="file-organiser Windows 11 toast notification"
+                width="447"
+                height="135"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
             <div class="project-body">
               <h3 class="project-name">file-organiser</h3>

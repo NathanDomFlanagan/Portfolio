@@ -1,22 +1,56 @@
 (function () {
-let randomNumber = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-
 const guessInput = document.getElementById('guess');
+if (!guessInput) return;
+
 const resultEl = document.getElementById('result');
 const bestEl = document.getElementById('best-score');
+const guessBtn = document.getElementById('guess-btn');
+const resetBtn = document.getElementById('reset-btn');
+
+let randomNumber = Math.floor(Math.random() * 100) + 1;
+let attempts = 0;
+let solved = false;
+
+// localStorage throws in private browsing and with site data blocked
+function readStored(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
+function writeStored(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {
+        /* best score just won't persist */
+    }
+}
+
+function plural(n) {
+    return Number(n) === 1 ? '' : 's';
+}
 
 function updateBestDisplay() {
-    const best = localStorage.getItem('guess-best');
-    bestEl.textContent = best ? `Best: ${best} attempt${best === '1' ? '' : 's'}` : '';
+    const best = readStored('guess-best');
+    bestEl.textContent = best ? `Best: ${best} attempt${plural(best)}` : '';
 }
 
 function checkGuess() {
+    // The round is over until Reset is pressed — otherwise every extra guess
+    // keeps incrementing the counter and re-announces a worse-looking win.
+    if (solved) return;
+
     const raw = guessInput.value.trim();
     const userGuess = Number(raw);
 
     if (raw === '' || Number.isNaN(userGuess)) {
         resultEl.textContent = 'Enter a number to guess.';
+        return;
+    }
+    if (!Number.isInteger(userGuess)) {
+        resultEl.textContent = 'Whole numbers only.';
         return;
     }
     if (userGuess < 1 || userGuess > 100) {
@@ -27,11 +61,12 @@ function checkGuess() {
     attempts++;
 
     if (userGuess === randomNumber) {
-        const best = localStorage.getItem('guess-best');
+        solved = true;
+        const best = readStored('guess-best');
         if (!best || attempts < Number(best)) {
-            localStorage.setItem('guess-best', String(attempts));
+            writeStored('guess-best', String(attempts));
         }
-        resultEl.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+        resultEl.textContent = `Congratulations! You guessed the number in ${attempts} attempt${plural(attempts)}. Press Reset to play again.`;
         updateBestDisplay();
     } else if (userGuess < randomNumber) {
         resultEl.textContent = 'Too low! Try again.';
@@ -43,18 +78,22 @@ function checkGuess() {
 function resetGame() {
     randomNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
+    solved = false;
     guessInput.value = '';
     resultEl.textContent = '';
+    guessInput.focus();
 }
 
 guessInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
 
-updateBestDisplay();
+// Deliberately unguarded. The whole file already bails if #guess is absent, so
+// these two exist on any page that gets this far — and a silent `if (btn)` here
+// is what previously let the buttons sit dead without anything saying so.
+guessBtn.addEventListener('click', checkGuess);
+resetBtn.addEventListener('click', resetGame);
 
-// Exposed on window so the inline onclick="" handlers in game.html can reach them
-window.checkGuess = checkGuess;
-window.resetGame = resetGame;
+updateBestDisplay();
 
 })();

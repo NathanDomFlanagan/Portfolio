@@ -19,18 +19,42 @@
     <meta name="twitter:description" content="Play a few browser mini-games — Snake, Tic-Tac-Toe, and a Number Guesser — built by Nathan Flanagan." />
     <meta name="twitter:image" content="https://nathandomflanagan.github.io/Portfolio/images/og-image.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script>
+      // Runs before first paint so the saved theme doesn't flash. localStorage
+      // throws wherever site data is blocked, and an uncaught throw here would
+      // leave the page stuck on whatever the media query picked.
       (function () {
-        var saved = localStorage.getItem("theme");
-        if (saved) document.documentElement.setAttribute("data-theme", saved);
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved) document.documentElement.setAttribute("data-theme", saved);
+        } catch (e) {
+          /* fall back to prefers-color-scheme */
+        }
       })();
     </script>
   </head>
   <body>
     <script src="navbar.js"></script>
 
-    <main>
+    <noscript>
+      <ul class="noscript-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="game.html">Games</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </noscript>
+
+    <main id="main" tabindex="-1">
     <div class="page-header">
       <h1>The <span class="accent">Games</span></h1>
     </div>
@@ -40,10 +64,15 @@
         <h2>Snake</h2>
         <div class="game-container">
           <div>
-            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            <!-- The canvas conveys nothing to assistive tech, so it carries a
+                 name and the status line below it is a live region — that is
+                 where score and game-over actually get announced. -->
+            <canvas id="gameCanvas" width="400" height="400" aria-label="Snake game board">
+              Your browser doesn't support canvas, so Snake can't run here.
+            </canvas>
             <p id="snake-score" class="game-status">Score: 0</p>
             <p id="snake-best" class="game-status"></p>
-            <p id="snake-status" class="game-status">Press E to start.</p>
+            <p id="snake-status" class="game-status" role="status">Press E to start.</p>
             <div class="snake-controls">
               <button class="snake-btn snake-btn-up" data-dir="up" aria-label="Move up">▲</button>
               <button class="snake-btn snake-btn-left" data-dir="left" aria-label="Move left">◀</button>
@@ -52,8 +81,8 @@
               <button class="snake-btn snake-btn-down" data-dir="down" aria-label="Move down">▼</button>
             </div>
           </div>
-          <div id="instructions">
-            <h2>How to Play</h2>
+          <div class="instructions">
+            <h3>How to Play Snake</h3>
             <p>Use the keys to move the snake (or the on-screen arrows on touch devices):</p>
             <ul>
               <li>Up: <strong>W</strong></li>
@@ -61,7 +90,7 @@
               <li>Left: <strong>A</strong></li>
               <li>Right: <strong>D</strong></li>
             </ul>
-            <p>Press <strong>E</strong> to pause / start.</p>
+            <p>Press <strong>E</strong> — or tap <strong>⏯</strong> on touch — to pause / start.</p>
             <p>Eat the red food to grow and score.</p>
             <p>Avoid walls and yourself.</p>
           </div>
@@ -87,8 +116,8 @@
             <p id="ttt-status" class="game-status">Turn: X</p>
             <p id="ttt-score" class="game-status">X: 0 &nbsp;·&nbsp; O: 0 &nbsp;·&nbsp; Draws: 0</p>
           </div>
-          <div id="instructions">
-            <h2>How to Play</h2>
+          <div class="instructions">
+            <h3>How to Play Tic-Tac-Toe</h3>
             <p>First to 3 in a row wins.</p>
             <p>Click any cell after a win or draw to play again.</p>
           </div>
@@ -102,8 +131,8 @@
           Guess a number between 1 and 100:
         </p>
         <input type="number" id="guess" min="1" max="100" placeholder="Your guess..." />
-        <button onclick="checkGuess()">Guess</button>
-        <button onclick="resetGame()">Reset</button>
+        <button type="button" id="guess-btn">Guess</button>
+        <button type="button" id="reset-btn">Reset</button>
         <p id="result"></p>
         <p id="best-score" class="game-status"></p>
         <script src="random.js"></script>

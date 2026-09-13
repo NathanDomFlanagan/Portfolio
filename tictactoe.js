@@ -1,5 +1,7 @@
 (function () {
 const cells = document.querySelectorAll('.cell');
+if (!cells.length) return;
+
 const statusEl = document.getElementById('ttt-status');
 const scoreEl = document.getElementById('ttt-score');
 
@@ -14,12 +16,30 @@ const winPatterns = [
     [0, 4, 8], [2, 4, 6]             // Diagonals
 ];
 
+// data-index is what `board` is keyed on, so everything that maps an index back
+// to an element goes through here. Using the NodeList position instead would
+// silently highlight and label the wrong squares if the markup were reordered.
+const cellByIndex = [];
+cells.forEach(cell => {
+    cellByIndex[Number(cell.getAttribute('data-index'))] = cell;
+});
+
 function updateStatus(text) {
     statusEl.textContent = text;
 }
 
 function updateScore() {
-    scoreEl.innerHTML = `X: ${scores.X} &nbsp;&middot;&nbsp; O: ${scores.O} &nbsp;&middot;&nbsp; Draws: ${scores.draws}`;
+    scoreEl.textContent = `X: ${scores.X} · O: ${scores.O} · Draws: ${scores.draws}`;
+}
+
+// An empty cell has no text, so without this it reaches a screen reader as an
+// unlabelled button — nine of them in a row.
+function refreshLabels() {
+    cellByIndex.forEach((cell, i) => {
+        const row = Math.floor(i / 3) + 1;
+        const col = (i % 3) + 1;
+        cell.setAttribute('aria-label', `Row ${row}, column ${col}, ${board[i] || 'empty'}`);
+    });
 }
 
 function getWinningPattern() {
@@ -27,16 +47,17 @@ function getWinningPattern() {
 }
 
 function playMove(cell) {
-    const index = cell.getAttribute('data-index');
+    const index = Number(cell.getAttribute('data-index'));
     if (board[index]) return;
 
     board[index] = currentPlayer;
     cell.textContent = currentPlayer;
+    refreshLabels();
 
     const winPattern = getWinningPattern();
     if (winPattern) {
         gameOver = true;
-        winPattern.forEach(i => cells[i].classList.add('win'));
+        winPattern.forEach(i => cellByIndex[i].classList.add('win'));
         scores[currentPlayer]++;
         updateScore();
         updateStatus(`${currentPlayer} wins! Click any cell to play again.`);
@@ -59,6 +80,7 @@ function resetGame() {
     });
     currentPlayer = 'X';
     gameOver = false;
+    refreshLabels();
     updateStatus('Turn: X');
 }
 
@@ -84,6 +106,7 @@ cells.forEach(cell => {
     });
 });
 
+refreshLabels();
 updateStatus('Turn: X');
 updateScore();
 
