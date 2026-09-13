@@ -65,8 +65,11 @@
         <div class="game-container">
           <div>
             <!-- The canvas conveys nothing to assistive tech, so it carries a
-                 name and the status line below it is a live region — that is
-                 where score and game-over actually get announced. -->
+                 name. The status line below it is a live region for pause and
+                 game-over messages — the running score updates silently, so
+                 eating food doesn't announce every point in real time; the
+                 final tally still reaches a screen reader as part of the
+                 game-over message. -->
             <canvas id="gameCanvas" width="400" height="400" aria-label="Snake game board">
               Your browser doesn't support canvas, so Snake can't run here.
             </canvas>

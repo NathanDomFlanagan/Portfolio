@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Nathan Flanagan
+N:Flanagan;Nathan;;;
+EMAIL;TYPE=INTERNET:jaypedesh7@gmail.com
+URL;TYPE=Portfolio:https://nathandomflanagan.github.io/Portfolio/
+URL;TYPE=GitHub:https://github.com/NathanDomFlanagan
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/nathan-flanagan-ab9139248/
+ADR;TYPE=WORK:;;;Auckland;;;New Zealand
+NOTE:Software Development \, Networking & Cyber-Security
+END:VCARD

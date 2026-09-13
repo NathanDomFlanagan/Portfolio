@@ -5,7 +5,8 @@
 /* ---- LIGHT TOKENS (default) ---- */
 /* --muted is for non-text UI only (borders, dividers, decorative glyphs); it
    clears 3:1 but not the 4.5:1 that body text needs. Anything a reader has to
-   actually read uses --subtle, which measures 5.1:1 on both backgrounds. */
+   actually read uses --subtle, which measures 5.1:1 in light mode and 5.5:1
+   in dark — both comfortably past the 4.5:1 text threshold. */
 :root {
   --bg:       #ffffff;
   --bg-off:   #f7f7f6;
@@ -257,6 +258,32 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
   transition: var(--theme-transition);
 }
 
+/* Green is a fixed, semantic "available" signal — not a themed token — so it
+   reads the same regardless of light/dark mode, same as the game colours. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  transition: var(--theme-transition);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3fb950;
+  box-shadow: 0 0 0 3px rgba(63, 185, 80, 0.18);
+}
+
 .hero h1 {
   font-family: var(--heading-font);
   font-size: clamp(3rem, 8vw, 5.5rem);
@@ -452,6 +479,14 @@ a.project-thumb:hover {
 
 .project-link:hover { color: var(--ink); }
 
+/* ---- GITHUB ACTIVITY ---- */
+.github-embed {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.25rem;
+}
+
 /* ---- RESUME ---- */
 .resume-actions {
   display: flex;
@@ -578,6 +613,7 @@ a.project-thumb:hover {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0;
   overflow: hidden;
+  margin-bottom: 1.5rem;
 }
 
 .contact-card {

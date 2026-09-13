@@ -65,8 +65,10 @@
 
         <!-- The links come first and are the real entry point. Mobile browsers
              decline to render an inline PDF but do NOT swap in an <object>'s
-             fallback content, so the embed is hidden outright under 600px
-             (see styles.css) rather than left as a blank 85vh box. -->
+             fallback content, so rather than hide the embed outright (viewport
+             width is only a rough proxy for "can't render a PDF" and gets it
+             wrong both ways), it stays visible but capped to a modest height
+             — see the .resume-embed comment in styles.css. -->
         <p class="resume-actions">
           <a class="project-link" href="files/Nathan_Flanagan_General_CV.pdf" download>Download PDF →</a>
           <a class="project-link" href="files/Nathan_Flanagan_General_CV.pdf" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
