@@ -16,25 +16,6 @@
     { href: 'resume/', label: 'Resume' },
   ];
 
-  // localStorage throws in Safari private mode and wherever site data is
-  // blocked, so every access is guarded. A forgetful toggle beats a script
-  // that dies half-way through wiring up the page.
-  function readStored(key) {
-    try {
-      return localStorage.getItem(key);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function writeStored(key, value) {
-    try {
-      localStorage.setItem(key, value);
-    } catch (e) {
-      /* preference just won't persist */
-    }
-  }
-
   // GitHub Pages serves 404.html for ANY unmatched path, so a relative href in
   // the injected nav would resolve against that bogus path (/Portfolio/a/b/)
   // and 404 in turn. This script is always served from the site root, so
@@ -121,8 +102,8 @@
     }
   });
 
-  // Theme toggle. The initial theme is already applied by the inline head
-  // script (for a saved choice) or by the prefers-color-scheme media query
+  // Theme toggle. The initial theme is already applied by theme-init.js
+  // (for a saved choice) or by the prefers-color-scheme media query
   // (for everyone else), so there is nothing to apply here on load.
   const root = document.documentElement;
   const themeBtn = document.getElementById('theme-toggle');

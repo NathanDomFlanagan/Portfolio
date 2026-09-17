@@ -307,6 +307,32 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
   text-transform: uppercase;
 }
 
+/* Grounded in the actual projects below rather than generic buzzwords —
+   each item maps to something a visitor can click through and verify. */
+.hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.5rem;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.hero-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-highlights li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
 /* ---- PAGE HEADER ---- */
 .page-header {
   max-width: var(--max-width);
@@ -327,6 +353,15 @@ a:focus-visible, button:focus-visible, .cell:focus-visible {
 .page-header h1 .accent {
   font-style: italic;
   color: var(--subtle);
+}
+
+.page-header .lede {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--subtle);
+  max-width: 54ch;
+  line-height: 1.6;
 }
 
 /* ---- CONTENT ---- */
@@ -404,11 +439,16 @@ section h2 {
   gap: 2.5rem;
 }
 
+/* #bootupsoftware is a fragment-jump target from the Home page's featured-project
+   teaser. .navbar is sticky, so without scroll-margin the jump tucks the card's
+   top edge underneath it — same fix as the #main skip-link target. */
 .project-card {
   display: flex;
+  align-items: center;
   gap: 1.75rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: var(--nav-height);
 }
 
 .project-card:last-child {
@@ -416,15 +456,20 @@ section h2 {
   border-bottom: none;
 }
 
+/* No fixed aspect-ratio: the actual screenshots range from ~0.8:1 (portrait) to
+   ~3.3:1 (a cropped toast notification), so any one fixed box ratio letterboxes
+   most of them. Sizing the box to each image's own intrinsic ratio (capped at
+   --thumb-max-height) means every thumb fills its box exactly — no empty bars —
+   at the cost of thumb height varying card to card. */
 .project-thumb {
+  --thumb-max-height: 220px;
   flex: 0 0 300px;
-  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
   /* Even matting on all four sides. text-align is for the broken-image path —
      it centres the alt text if a screenshot ever fails to load. */
-  padding: 0.75rem;
+  padding: 1.5rem;
   text-align: center;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -438,9 +483,11 @@ a.project-thumb:hover {
 }
 
 .project-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--thumb-max-height);
 }
 
 .project-body { flex: 1; min-width: 0; }
@@ -459,6 +506,32 @@ a.project-thumb:hover {
   line-height: 1.7;
   margin-bottom: 0.9rem;
   max-width: 60ch;
+}
+
+/* Problem/Approach/Result breakdown used on the Projects page cards.
+   Home's Featured Project teaser keeps the plain .project-summary above. */
+.project-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+  max-width: 60ch;
+}
+
+.project-stage-label {
+  display: block;
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 0.2rem;
+}
+
+.project-stage-text {
+  font-size: 0.9rem;
+  color: var(--subtle);
+  line-height: 1.7;
 }
 
 .project-meta {
@@ -517,12 +590,30 @@ a.project-thumb:hover {
 }
 
 /* ---- RESUME ---- */
+.resume-updated {
+  margin-bottom: 0.9rem;
+  font-family: var(--mono-font);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
 .resume-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 1.25rem;
   margin-bottom: 1rem;
 }
+
+.resume-actions .project-link {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  color: var(--subtle);
+}
+
+.resume-actions .project-link:hover { color: var(--ink); }
 
 /* Whether a browser renders an inline PDF at all is a capability, not
    something CSS can detect — viewport width is only a rough proxy for "mobile"
@@ -630,6 +721,89 @@ a.project-thumb:hover {
   color: var(--subtle);
   letter-spacing: 0.05em;
   transition: var(--theme-transition);
+}
+
+.about-aside {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--subtle);
+  max-width: 58ch;
+  line-height: 1.7;
+}
+
+/* ---- EDUCATION TIMELINE ---- */
+.timeline {
+  position: relative;
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+  padding-bottom: 2.25rem;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+/* Connecting line drawn per-item so it naturally stops after the last entry. */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: -2.25rem;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item:last-child::before { display: none; }
+
+.timeline-marker {
+  flex: 0 0 11px;
+  width: 11px;
+  height: 11px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--muted);
+  transition: var(--theme-transition);
+}
+
+.timeline-content { flex: 1; min-width: 0; }
+
+.timeline-date {
+  display: inline-block;
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 0.4rem;
+}
+
+.timeline-title {
+  font-family: var(--body-font);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.timeline-role {
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--subtle);
+  line-height: 1.6;
 }
 
 /* ---- CONTACT ---- */
@@ -865,5 +1039,7 @@ button:hover { background: var(--bg-off); border-color: var(--subtle); }
   .game-container { flex-direction: column; }
   .project-card { flex-direction: column; }
   .project-thumb { flex-basis: auto; width: 100%; }
+  .timeline-item { gap: 1rem; padding-bottom: 1.75rem; }
+  .timeline-item::before { bottom: -1.75rem; }
   footer { flex-direction: column; gap: 0.25rem; text-align: center; }
 }

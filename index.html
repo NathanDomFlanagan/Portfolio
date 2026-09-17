@@ -26,21 +26,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script>
-      // Runs before first paint so the saved theme doesn't flash. localStorage
-      // throws wherever site data is blocked, and an uncaught throw here would
-      // leave the page stuck on whatever the media query picked.
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          if (saved) document.documentElement.setAttribute("data-theme", saved);
-        } catch (e) {
-          /* fall back to prefers-color-scheme */
-        }
-      })();
-    </script>
+    <script src="theme-init.js"></script>
   </head>
   <body>
+    <script src="storage.js"></script>
     <script src="navbar.js"></script>
 
     <noscript>
@@ -59,6 +48,11 @@
       <span class="status-badge"><span class="status-dot" aria-hidden="true"></span>Open to work</span>
       <h1>Hi, I'm <em>Nathan.</em></h1>
       <p class="subtitle">Software Dev &nbsp;·&nbsp; Networking &nbsp;·&nbsp; Cyber&#8209;Security</p>
+      <ul class="hero-highlights">
+        <li>Desktop automation tools for Windows — BootUpSoftware, file&#8209;organiser</li>
+        <li>Security-minded apps — breach-aware password checks with local-only hashing</li>
+        <li>Front-end web builds — this site, from scratch in HTML, CSS &amp; JS</li>
+      </ul>
     </section>
 
     <div class="content">
@@ -68,6 +62,37 @@
           Kia Ora! Welcome to my Portfolio Website. To choose your preferred site to light or dark you click the icon on the top right.
           Navigation to each tab is on the top, feel free to look around and once again welcome!
         </p>
+      </section>
+      <section>
+        <h2>Featured Project</h2>
+        <div class="project-list">
+          <article class="project-card">
+            <a class="project-thumb" href="projects/#bootupsoftware" aria-label="BootUpSoftware case study — view screenshot and details">
+              <img
+                src="images/bootupsoftware.png"
+                alt="BootUpSoftware app screenshot"
+                width="795"
+                height="623"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="project-body">
+              <h3 class="project-name">BootUpSoftware</h3>
+              <p class="project-summary">
+                Starting a work session often meant manually opening the same handful of apps, one by one, every
+                time. One click replaces several minutes of manual app-launching, with an in-memory undo history to
+                recover any category or profile removed by accident.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">CustomTkinter</span>
+                <span class="tag">Windows</span>
+              </div>
+              <a class="project-link" href="projects/#bootupsoftware">View case study →</a>
+            </div>
+          </article>
+        </div>
       </section>
       <section>
         <h2>Favourite Repos</h2>

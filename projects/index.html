@@ -26,21 +26,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
     />
     <link rel="stylesheet" href="../styles.css" />
-    <script>
-      // Runs before first paint so the saved theme doesn't flash. localStorage
-      // throws wherever site data is blocked, and an uncaught throw here would
-      // leave the page stuck on whatever the media query picked.
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          if (saved) document.documentElement.setAttribute("data-theme", saved);
-        } catch (e) {
-          /* fall back to prefers-color-scheme */
-        }
-      })();
-    </script>
+    <script src="../theme-init.js"></script>
   </head>
   <body>
+    <script src="../storage.js"></script>
     <script src="../navbar.js"></script>
 
     <noscript>
@@ -75,11 +64,20 @@
             </a>
             <div class="project-body">
               <h3 class="project-name">Portfolio Website</h3>
-              <p class="project-summary">
-                This site — a vanilla HTML, CSS &amp; JS portfolio with a shared navbar component, a
-                custom light/dark theme built on CSS variables, and a few browser mini-games, hosted
-                on GitHub Pages.
-              </p>
+              <div class="project-breakdown">
+                <div class="project-stage">
+                  <span class="project-stage-label">Problem</span>
+                  <p class="project-stage-text">Needed a portfolio site that stayed maintainable long-term without using any frameworks or a build step for a site this size.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Approach</span>
+                  <p class="project-stage-text">Built entirely in vanilla HTML, CSS &amp; JS — a shared navbar component injected via a small script, a light/dark theme driven entirely by CSS custom properties, plus a few browser mini-games for a bit of character.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Result</span>
+                  <p class="project-stage-text">A fast, dependency-free site with clean URLs, hosted on GitHub Pages.</p>
+                </div>
+              </div>
               <div class="project-meta">
                 <span class="tag">HTML</span>
                 <span class="tag">CSS</span>
@@ -89,7 +87,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" id="bootupsoftware">
             <a class="project-thumb" href="../images/bootupsoftware.png" target="_blank" rel="noopener noreferrer"
                aria-label="BootUpSoftware app screenshot — view full size">
               <img
@@ -103,15 +101,23 @@
             </a>
             <div class="project-body">
               <h3 class="project-name">BootUpSoftware</h3>
-              <p class="project-summary">
-                A Windows desktop app for grouping installed programs into categories and launch-ready
-                profiles, so a whole set of apps opens with a single click instead of launching each one
-                by hand. Settings persist to a JSON config with automatic migration from older versions,
-                and an in-memory undo history lets you recover accidentally removed entries.
-              </p>
+              <div class="project-breakdown">
+                <div class="project-stage">
+                  <span class="project-stage-label">Problem</span>
+                  <p class="project-stage-text">Starting a work session often meant manually opening the same handful of apps, one by one, every time.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Approach</span>
+                  <p class="project-stage-text">Built a Windows desktop app for grouping installed programs into categories and combining them into launch-ready profiles, so a whole set of apps opens with a single click.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Result</span>
+                  <p class="project-stage-text">One click replaces several minutes of manual app-launching, with an in-memory undo history to recover any category or profile removed by accident.</p>
+                </div>
+              </div>
               <div class="project-meta">
                 <span class="tag">Python</span>
-                <span class="tag">ttkbootstrap</span>
+                <span class="tag">CustomTkinter</span>
                 <span class="tag">Windows</span>
               </div>
               <a class="project-link" href="https://github.com/NathanDomFlanagan/BootUpSoftware" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
@@ -132,13 +138,20 @@
             </a>
             <div class="project-body">
               <h3 class="project-name">Password Tester App</h3>
-              <p class="project-summary">
-                A desktop password strength checker and generator. Alongside local complexity checks
-                (length, character diversity), it checks entered passwords against the Have I Been Pwned
-                breach database using k-anonymity — hashing the password locally and sending only the
-                first 5 characters of that hash, so the real password never leaves the machine. Also
-                generates cryptographically secure passwords via Python's <code>secrets</code> module.
-              </p>
+              <div class="project-breakdown">
+                <div class="project-stage">
+                  <span class="project-stage-label">Problem</span>
+                  <p class="project-stage-text">Password strength meters usually just check length and character variety - they don't tell you whether a password has actually been leaked in a real breach.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Approach</span>
+                  <p class="project-stage-text">Built a desktop checker that combines local complexity checks with a real breach lookup against the Have I Been Pwned database, using k-anonymity so only the first 5 characters of a locally-hashed password ever leave the machine - never the password itself.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Result</span>
+                  <p class="project-stage-text">A strength check that's actually grounded in real breach data, plus a generator that produces cryptographically secure passwords via Python's <code>secrets</code> module.</p>
+                </div>
+              </div>
               <div class="project-meta">
                 <span class="tag">Python</span>
                 <span class="tag">CustomTkinter</span>
@@ -162,13 +175,20 @@
             </a>
             <div class="project-body">
               <h3 class="project-name">file-organiser</h3>
-              <p class="project-summary">
-                A Windows system tray utility that watches the Downloads folder in real time and
-                automatically sorts new files into category subfolders (Pictures, Documents, Videos,
-                etc.) based on file extension, with OneDrive-aware routing. Includes an undo history for
-                the last 20 moves, native Windows 11 toast notifications, and a settings window for
-                customizing file-type rules without touching a config file directly.
-              </p>
+              <div class="project-breakdown">
+                <div class="project-stage">
+                  <span class="project-stage-label">Problem</span>
+                  <p class="project-stage-text">The Downloads folder becomes a dumping ground for every file type, and manually sorting it never actually happens.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Approach</span>
+                  <p class="project-stage-text">Built a Windows system tray utility that watches Downloads in real time and automatically routes new files into category subfolders (Pictures, Documents, Videos, etc.) by extension, with OneDrive-aware routing and a settings window for customizing rules without editing a config file.</p>
+                </div>
+                <div class="project-stage">
+                  <span class="project-stage-label">Result</span>
+                  <p class="project-stage-text">Downloads sorts itself continuously, with an undo history for the last 20 moves and native Windows 11 toast notifications confirming each move.</p>
+                </div>
+              </div>
               <div class="project-meta">
                 <span class="tag">Python</span>
                 <span class="tag">Windows</span>

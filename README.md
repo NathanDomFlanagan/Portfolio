@@ -40,6 +40,12 @@ Portfolio/
 ├── resume.html                   # Redirect stub → /resume/
 ├── contact.html                  # Redirect stub → /contact/
 ├── game.html                     # Redirect stub → /game/
+├── scripts/generate-redirects.js # Dev-only helper that (re)generates the 5
+│                                  # redirect stubs above — not part of the live site
+├── theme-init.js                 # Shared "avoid a flash of the wrong theme" script,
+│                                  # loaded in every page's <head>
+├── storage.js                    # Shared localStorage read/write helpers used by
+│                                  # navbar.js, snake.js, and random.js
 ├── navbar.js                     # Shared navigation bar + theme toggle logic
 ├── lightbox.js                   # Full-screen image viewer for project screenshots
 ├── github-stats.js               # Swaps GitHub widgets to match light/dark theme
@@ -72,7 +78,7 @@ https://nathandomflanagan.github.io/Portfolio/
 
 ## About Me
 
-I'm a recent graduate with a Bachelor of Computer and Information Sciences (Software Development, Networks & Cybersecurity) from AUT, based in Auckland, New Zealand. This site is where I collect the projects I build as I grow my skills across software development and cybersecurity.
+I'm a graduate with a Bachelor of Computer and Information Sciences (Software Development, Networks & Cybersecurity) from AUT, based in Auckland, New Zealand. This site is where I collect the projects I build as I grow my skills across software development and cybersecurity.
 
 ## Contact
 

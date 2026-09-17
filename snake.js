@@ -41,24 +41,6 @@ let dead = false;
 let speed = BASE_SPEED;
 let timer = null;
 
-// localStorage throws in private browsing and with site data blocked, and an
-// uncaught throw in here would take the whole game loop down with it.
-function readStored(key) {
-  try {
-    return localStorage.getItem(key);
-  } catch (e) {
-    return null;
-  }
-}
-
-function writeStored(key, value) {
-  try {
-    localStorage.setItem(key, value);
-  } catch (e) {
-    /* high score just won't persist */
-  }
-}
-
 function updateScore() {
   scoreEl.textContent = 'Score: ' + score;
 }

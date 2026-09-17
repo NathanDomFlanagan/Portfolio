@@ -11,23 +11,6 @@ let randomNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 let solved = false;
 
-// localStorage throws in private browsing and with site data blocked
-function readStored(key) {
-    try {
-        return localStorage.getItem(key);
-    } catch (e) {
-        return null;
-    }
-}
-
-function writeStored(key, value) {
-    try {
-        localStorage.setItem(key, value);
-    } catch (e) {
-        /* best score just won't persist */
-    }
-}
-
 function plural(n) {
     return Number(n) === 1 ? '' : 's';
 }

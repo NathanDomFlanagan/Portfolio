@@ -26,21 +26,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Serif+Display&amp;family=Outfit:wght@300;400;500&amp;display=swap"
     />
     <link rel="stylesheet" href="../styles.css" />
-    <script>
-      // Runs before first paint so the saved theme doesn't flash. localStorage
-      // throws wherever site data is blocked, and an uncaught throw here would
-      // leave the page stuck on whatever the media query picked.
-      (function () {
-        try {
-          var saved = localStorage.getItem("theme");
-          if (saved) document.documentElement.setAttribute("data-theme", saved);
-        } catch (e) {
-          /* fall back to prefers-color-scheme */
-        }
-      })();
-    </script>
+    <script src="../theme-init.js"></script>
   </head>
   <body>
+    <script src="../storage.js"></script>
     <script src="../navbar.js"></script>
 
     <noscript>
@@ -57,6 +46,10 @@
     <main id="main" tabindex="-1">
     <div class="page-header">
       <h1>About <span class="accent">Me</span></h1>
+      <p class="lede">
+        I'm a Software Development and Networking &amp; Cyber-Security graduate,
+        currently open to IT roles of any level in Auckland, NZ.
+      </p>
     </div>
 
     <div class="content">
@@ -67,9 +60,7 @@
           graduate from Auckland University of Technology (AUT). I have experience across
           Java, C, Python, and both front-end and back-end web development — including HTML,
           CSS, and JavaScript. I'm also comfortable working across Git, Linux, and Windows,
-          and scripting with PowerShell and Bash. I'm always eager to keep learning, and I
-          enjoy coding personal projects, video games, socialising with family and friends,
-          and keeping up with the latest tech trends.
+          and scripting with PowerShell and Bash.
         </p>
         <div class="about-tags">
           <span class="tag">Java</span>
@@ -86,15 +77,43 @@
           <span class="tag">Networking</span>
           <span class="tag">Cyber-Security</span>
         </div>
+        <p class="about-aside">
+          Outside of that, I'm always eager to keep learning — you'll usually find me
+          coding personal projects, playing video games, catching up with family and
+          friends, or keeping an eye on the latest tech trends.
+        </p>
       </section>
       <section>
         <h2>Education</h2>
-        <p style="font-size: 0.92rem; color: var(--subtle);">
-          Bachelor's degree in Software Development + Networking &amp; Cyber-Security<br />
-          <span style="font-family: var(--mono-font); font-size: 0.8rem; color: var(--subtle);">
-            Auckland University of Technology (AUT)
-          </span>
-        </p>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-marker"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">2016 - 2020 · Auckland</span>
+              <h3 class="timeline-title">Waitakere College</h3>
+              <p class="timeline-role">High School Degree</p>
+              <p class="timeline-desc">NCEA level 1-3, Merit Endorsed</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-marker"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">2021 - 2024 · Auckland</span>
+              <h3 class="timeline-title">Auckland University of Technology</h3>
+              <p class="timeline-role">Bachelor of Computer and Information Sciences</p>
+              <p class="timeline-desc">Majoring in Software Development &amp; Networks and Cybersecurity</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-marker"></span>
+            <div class="timeline-content">
+              <span class="timeline-date">2025 - 2026 · Auckland</span>
+              <h3 class="timeline-title">academyEX</h3>
+              <p class="timeline-role">Certificate</p>
+              <p class="timeline-desc">AI Skills: Levels 1-3 &amp; Digital Skills: Levels 1-3</p>
+            </div>
+          </li>
+        </ol>
       </section>
     </div>
     </main>
