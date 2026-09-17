@@ -9,7 +9,7 @@ A multi-page site built with vanilla HTML, CSS, and JavaScript (no framework req
 - **Home** (`/`) — landing page
 - **About** (`/about/`) — background and skills
 - **Projects** (`/projects/`) — case studies for personal projects, each with a screenshot, write-up, and tech tags
-- **Resume** (`/resume/`) — résumé viewable inline (PDF embed) with a direct download link
+- **Resume** (`/resume/`) — resume viewable inline (PDF embed) with a direct download link
 - **Contact** (`/contact/`) — ways to get in touch
 - **Game** (`/game/`) — a few playable browser games (Snake, Tic-Tac-Toe, and a Number Guesser) as a fun extra
 - **404** (`404.html`) — custom not-found page
