@@ -946,6 +946,14 @@ canvas {
   color: var(--subtle);
 }
 
+/* display:block because this replaced a <p> and a label is inline by default */
+.guess-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--subtle);
+}
+
 /* On-screen D-pad for Snake — hidden on mouse-driven devices, shown for touch */
 .snake-controls {
   display: none;

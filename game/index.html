@@ -105,7 +105,7 @@
               <div class="cell" data-index="7"></div>
               <div class="cell" data-index="8"></div>
             </div>
-            <p id="ttt-status" class="game-status">Turn: X</p>
+            <p id="ttt-status" class="game-status" role="status">Turn: X</p>
             <p id="ttt-score" class="game-status">X: 0 &nbsp;·&nbsp; O: 0 &nbsp;·&nbsp; Draws: 0</p>
           </div>
           <div class="instructions">
@@ -119,13 +119,11 @@
 
       <section>
         <h2>Number Guesser</h2>
-        <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--subtle);">
-          Guess a number between 1 and 100:
-        </p>
+        <label class="guess-label" for="guess">Guess a number between 1 and 100:</label>
         <input type="number" id="guess" min="1" max="100" placeholder="Your guess..." />
         <button type="button" id="guess-btn">Guess</button>
         <button type="button" id="reset-btn">Reset</button>
-        <p id="result"></p>
+        <p id="result" role="status"></p>
         <p id="best-score" class="game-status"></p>
         <script src="../random.js"></script>
       </section>
